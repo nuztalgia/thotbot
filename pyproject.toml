@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=61.0", "setuptools_scm[toml]>=7.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "thotbot"
+description = "A Discord bot that celebrates women unapologetically enjoying themselves."
+authors = [
+    { name = "Nuztalgia" },
+    { email = "nuztalgia@gmail.com" }
+]
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = "==3.10.*"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Communications :: Chat",
+    "Typing :: Typed",
+]
+dynamic = ["dependencies", "urls", "version"]
+
+[project.scripts]
+thotbot = "thotbot.__main__:main"
+
+[tool.black]
+target-version = ["py310"]
+
+[tool.isort]
+profile = "black"
+
+[tool.pydocstyle]
+convention = "google"
+add-ignore = "D1"
+
+[tool.setuptools]
+packages = ["thotbot"]
+
+[tool.setuptools_scm]
+local_scheme = "no-local-version"
