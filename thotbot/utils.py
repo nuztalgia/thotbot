@@ -5,8 +5,9 @@ from functools import partial
 from typing import Any, Final
 
 import emoji
-from discord import ChannelType, Color, Member, User
+from discord import ApplicationContext, ChannelType, Color, Embed, File, Member, User
 from discord.abc import GuildChannel
+from discord.ui import View
 
 NO_COLOR: Final[int] = -1
 
@@ -25,6 +26,27 @@ def dict_to_str(
         {key: value_to_string(value) for key, value in data.items()},
         indent=regular_indent,
     ).replace("\n", f"\n{' ' * newline_indent}")
+
+
+async def edit_or_respond(
+    ctx: ApplicationContext,
+    *,
+    content: str | None = None,
+    embed: Embed | None = None,
+    view: View | None = None,
+    **kwargs: Any,
+) -> None:
+    embeds = [
+        _embed
+        for _embed in [embed, kwargs.pop("embed", None), *kwargs.pop("embeds", [])]
+        if isinstance(_embed, Embed)
+    ]
+    func = ctx.edit if ctx.response.is_done() else ctx.respond
+    await func(content=content, embeds=embeds, view=view, **kwargs)
+
+
+def get_asset_file(file_name: str) -> File:
+    return File(f"thotbot/assets/{file_name}")
 
 
 def get_channel_display_name(

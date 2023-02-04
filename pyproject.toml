@@ -37,7 +37,7 @@ convention = "google"
 add-ignore = "D1"
 
 [tool.setuptools]
-packages = ["thotbot"]
+packages = ["thotbot", "thotbot.assets", "thotbot.cogs"]
 
 [tool.setuptools_scm]
 local_scheme = "no-local-version"
